@@ -9,7 +9,7 @@ namespace WarehouseIS_Base.Classes
 {
     public static class AnalyticalMaster
     {
-        private static List<ReportLine> Lines { get;}
+        private static List<ReportLine> Lines { get; } = new List<ReportLine>();
         private static string itemsDescription { get; set; } = String.Empty;
 
         private static string incomeDescription { get; set; } = "\n";
@@ -31,7 +31,7 @@ namespace WarehouseIS_Base.Classes
             return newReport;
         }
 
-        private static List<Item.Item> ItemsStats()
+        private static void ItemsStats()
         {
             List<Item.Item> items = new List<Item.Item>();
             foreach (var line in Lines)
@@ -58,8 +58,6 @@ namespace WarehouseIS_Base.Classes
                 }
 
             }
-
-            return items;
         }
 
         private static double IncomeStats()
