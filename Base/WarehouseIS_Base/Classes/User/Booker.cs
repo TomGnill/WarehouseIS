@@ -14,10 +14,10 @@ namespace WarehouseIS_Base.Classes.User
 
         public Report.Report PeriodReport(DateTime from, DateTime to)
         {
-            List<Report.Report> perReports = DBsimulation.Reports.Where(s => s.CreateTime < to && s.CreateTime > from).ToList();
-            Report.Report report = new Report.Report(ReportType.Period);
+            var perReports = DBsimulation.Reports.Where(s => s.CreateTime < to && s.CreateTime > from).ToList();
+            var report = new Report.Report(ReportType.Period);
             report.AddReports(perReports);
-            foreach (Report.Report preport in perReports)
+            foreach (var preport in perReports)
             {
                 report.AddLine(preport.Lines);
             }

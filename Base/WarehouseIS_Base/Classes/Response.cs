@@ -29,39 +29,34 @@ namespace WarehouseIS_Base.Classes
 
         public bool CheckItems(List<Item.Item> items)
         {
-            List<Item.Item> DBCopy = DBsimulation.Items;
-            foreach(Item.Item item in items)
+            var dbCopy = DBsimulation.Items;
+            foreach(var item in items)
             {
-               Item.Item DBItem = DBCopy.FirstOrDefault(s => s.Id == item.Id);
-               if(DBItem != null)
+               var dbItem = dbCopy.FirstOrDefault(s => s.Id == item.Id);
+               if(dbItem != null)
                {
-                    if(DBItem.Count > item.Count)
+                    if(dbItem.Count > item.Count)
                     {
-                        DBItem.Count -= item.Count;
-                        DBItem.Reserved += item.Count;
+                        dbItem.Count -= item.Count;
+                        dbItem.Reserved += item.Count;
                     }
                     else
                     {
                         return false;
                     }
                }
-                else
-                {
-                    return false;
-                }
+               else
+               {
+                   return false;
+               }
             }
-            DBsimulation.Items = DBCopy;
+            DBsimulation.Items = dbCopy;
             return true;
         }
 
         public double CalcPrice(List<Item.Item> items)
         {
-            double sum = 0;
-            foreach(var item in items)
-            {
-                sum += item.Price * item.Count;
-            }
-            return sum;
+            return items.Sum(item => item.Price * item.Count);
         }
     }
 }

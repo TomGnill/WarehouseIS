@@ -13,11 +13,10 @@ namespace WarehouseIS_Base.Classes.User
 
         public Report.Report CreateReport(List<Item.Item> items)
         {
-            Report.Report report = new Report.Report(Report.ReportType.Delivered);
+            var report = new Report.Report(Report.ReportType.Delivered);
             
-            foreach (Item.Item item in items)
+            foreach (var line in items.Select(item => new Report.SaleLine(item, item.BuyPrice, item.Price, item.Count)))
             {
-                var line = new Report.SaleLine(item, item.BuyPrice, item.Price, item.Count);
                 report.AddLine(line);
             }
             report.Save();
